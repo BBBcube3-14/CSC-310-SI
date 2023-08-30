@@ -1,3 +1,5 @@
+#include <iostream>
+using namespace std;
 
 class clockType{
     int hr, min, sec;
@@ -15,8 +17,7 @@ class clockType{
         bool operator == (const clockType&);
 };
 
-#include <iostream>
-using namespace std;
+
 clockType::clockType(){
     hr = 0;
     min = 0;

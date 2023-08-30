@@ -1,4 +1,4 @@
-#include "clock.hpp"
+/*#include "clock.hpp"
 #include <iostream>
 using namespace std;
 clockType::clockType(){
@@ -76,3 +76,4 @@ bool clockType::operator == (const clockType& t){
 //private default
 // . is member access
 // = assignment
+*/
