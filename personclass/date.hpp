@@ -4,11 +4,18 @@ using namespace std;
 class Date{
     int month, day, year;
     public: 
+        Date();
         Date(int, int, int);
 		void printDate();
 		void setDate(int, int, int);
 		void getDate(int&, int&, int&);
 };
+
+Date::Date(){
+    month = 1;
+    day = 1;
+    year = 2023;
+}
 
 Date::Date(int m, int d, int y){
     month = m;

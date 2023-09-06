@@ -16,5 +16,21 @@ int main(){
     Date today(month, day, year);
     today.printDate();
 
+    personalInfoType Ben("Ben", "Batie", 4, 20, 2002, 1);
+    Ben.printPersonalInfo();
+    personalInfoType Cheyloh("Cheyloh", "Brockel", 2, 26, 2002, 2);
+    Cheyloh.printPersonalInfo();
+    personalInfoType voidEmpty; //.personalInfoType();
+    voidEmpty.printPersonalInfo();
+
+    me.setName("Ben-Juh-min", "Bay-TEE");
+    me.printName();
+
+    cout << "Previous  values: " << lastName << ", " << firstName << endl;
+    me.getName(firstName, lastName);
+    cout << "Retrieved Values: "  << lastName << ", " << firstName << endl;
+
+    string name = me.getFirstName();
+    cout << "Test getFirstName: " << name << endl;
     return 0;
 }

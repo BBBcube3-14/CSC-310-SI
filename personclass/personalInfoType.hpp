@@ -2,6 +2,7 @@
 using namespace  std;
 #include "person.hpp"
 #include "date.hpp"
+//template<classType>
 
 class personalInfoType{
     Person fullName;
@@ -15,13 +16,14 @@ class personalInfoType{
 
 };
 
-personalInfoType::personalInfoType(){
-
+personalInfoType::personalInfoType():fullName(" ", " "), birthDate(0,0,0){
+    id = 0;
 }
 
-personalInfoType::personalInfoType(string fn, string ln, int m, int d, int y, int id){
+personalInfoType::personalInfoType(string fn, string ln, int m, int d, int y, int ID){
     fullName.setName(fn, ln);
-
+    birthDate.setDate(m,d,y);
+    id = ID;
 }
 
 void personalInfoType::printPersonalInfo(){
