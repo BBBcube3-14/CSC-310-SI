@@ -15,6 +15,7 @@ class clockType{
         void incrementMinutes();
         void incrementHours();
         bool operator == (const clockType&);
+        bool operator <= (const clockType&);
 };
 
 
