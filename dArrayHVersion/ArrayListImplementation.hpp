@@ -1,4 +1,3 @@
-//#include "ArrayListDesign.hpp"
 #include <cassert>
 #include <iostream>
 using namespace std;
@@ -211,6 +210,7 @@ ArrayList<Type>::ArrayList(const ArrayList<Type>& otherList) {
 template<class Type>
 ArrayList<Type>::~ArrayList() { // destructor
 	delete[] list;
+	cout << "Destructor called.\n";
 }
 
 template<class Type>
