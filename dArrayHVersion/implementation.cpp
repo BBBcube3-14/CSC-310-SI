@@ -2,78 +2,156 @@
 using namespace std;
 #include"ArrayListImplementation.hpp"
 
-int main()
-{
-	/*ArrayList<int> intList(10);
-	int x;
-	intList.print();
-	cout<<intList.isEmpty()<<"\n";
-	intList.insert(0); intList.insert(10); intList.insert(30);
-	intList.print();
-	cout << intList.isEmpty() << "\n";
-	intList.insertAt(2,20);
-	intList.print();
-	intList.insertEnd(40);
-	intList.print();
-	intList.insertAt(7, 20);
-	intList.print();
-	intList.insert(20);
-	intList.clearList();
-	intList.print();
-	cout<<intList.isFull() << "\n";
-	cout<<intList.isItemAtEqual(2, 20) << "\n";
-	intList.remove(10);
-	intList.print();
-	intList.removeAt(3);
-	intList.print();
-	intList.replaceAt(2, 100);
-	intList.print();
-	cout<<intList.seqSearch(30) << "\n";
-	intList.retrieveAt(4, x);
-	cout << x << "\n";
-	ArrayList<int> newIntList(intList);
-	cout << "New list contains: ";
-	newIntList.print();
-	ArrayList<int> list2(10);
-	list2 = intList;
-	cout << "List 2 contains: ";
-	list2.print();*/
+int countEven(ArrayList<int> list){
+	int count = 0, n, i, x;
+	n = list.listSize();
+	for(i = 0; i < n; i++){
+		list.retrieveAt(i, x);
+		if(x % 2 == 0){
+			count++;
+		}
+	}
+	return count;
+}
 
-	ArrayList<char> charList(10);
+int countVowel(ArrayList<char> list){
+	int count = 0, n, i;
 	char x;
-	charList.print();
-	cout << charList.isEmpty() << "\n";
-	charList.insert('A'); 
-    charList.insert('B'); 
-    charList.insert('D');
-	charList.print();
-	cout << charList.isEmpty() << "\n";
-	charList.insertAt(2, 'C');
-	charList.print();
-	charList.insertEnd('E');
-	charList.print();
-	charList.insertAt(7, 'Z');
-	charList.print();
-	charList.insert('B');
-	//charList.clearList();
-	//charList.print();
-	cout << charList.isFull() << "\n";
-	cout << charList.isItemAtEqual(2, 'C') << "\n";
-	charList.remove('B');
-	charList.print();
-	charList.removeAt(0);
-	charList.print();
-	charList.replaceAt(1, 'O');
-	charList.print();
-	cout << charList.seqSearch('Z') << "\n";
-	charList.retrieveAt(0, x);
-	cout << x << "\n";
-	ArrayList<char> newCharList(charList);
-	cout << "New list contains: ";
-	newCharList.print();
-	ArrayList<char> list2(10);
-	list2 = newCharList;
-	cout << "List 2 contains: ";
-	list2.print();
+	n = list.listSize();
+	for(i = 0; i < n; i++){
+		list.retrieveAt(i, x);
+		if(x == 'a' || x == 'A' || x == 'e' || x == 'E' || x == 'i' || x == 'I' || x == 'o' || x == 'O' || x == 'u' || x == 'U'){
+			count++;
+		}
+	}
+	return count;
+}
+
+void replaceVowels(ArrayList<char> &list, char letter){
+	int n = list.listSize();
+	char x;
+	for(int i = 0; i < n; i++){
+		list.retrieveAt(i, x);
+		if(x == 'a' || x == 'A' || x == 'e' || x == 'E' || x == 'i' || x == 'I' || x == 'o' || x == 'O' || x == 'u' || x == 'U'){
+			list.replaceAt(i, letter);
+		}
+	}
+	return;
+}
+
+template <class T>
+void bubbleSort(ArrayList<T> &list){
+	int i, j, n;
+	T one;
+	T two;
+	n = list.listSize();
+	bool swapped;
+	for (i = 0; i < n - 1; i++){
+		swapped = false;
+		for(j = 0; j < n - i - 1; j++){
+			list.retrieveAt(j, one);
+			list.retrieveAt(j + 1, two);
+			if(one > two){
+				list.replaceAt(j, two);
+				list.replaceAt(j + 1, one);
+				swapped = true;
+				list.print();
+			}
+		}
+		if (swapped == false){
+			break;
+		}
+	}
+}
+
+bool deleteValues(ArrayList<int>& list, int item){
+	/*int n = list.listSize();
+	bool found = false;
+	int val;
+	for(int i = 0; i < n; i++){
+		list.retrieveAt(i,val);
+		if(found == false){
+			if(val == item){
+				found = true;
+			}
+		}
+		if(found == true){
+			if(val <= item){
+				list.removeAt(i);
+				i--;
+				n--;
+			}
+		}
+	}*/
+	int val;
+	int n = list.listSize();
+	int p = list.seqSearch(item);
+	if(p == -1){
+		return false;
+	}else{
+		for(int i = p; i < list.listSize(); i++){
+			list.retrieveAt(i,val);
+			if(val <= item){
+				list.removeAt(i);
+				i--;
+			}
+		}
+		return true;
+	}
+
+
+	//return found;
+}
+
+int main() {
+	ArrayList<int> number(10);
+	ArrayList<char> letters(10);
+	//14 9 3 6 5
+	//B a T i E
+	number.insertEnd(3);
+	number.insertEnd(10);
+	number.insertEnd(4);
+	number.insertEnd(5);
+	number.insertEnd(3);
+	number.insertEnd(2);
+	number.insertEnd(8);
+	number.insertEnd(4);
+	number.insertEnd(6);
+	number.insertEnd(1);
+
+	letters.insertEnd('B');
+	letters.insertEnd('a');
+	letters.insertEnd('T');
+	letters.insertEnd('i');
+	letters.insertEnd('E');
+
+	number.print();
+	letters.print();
+
+	//cout << countEven(number) << " even numbers in the number list." << endl;
+	//cout << countVowel(letters) << " vowels in the letter list." << endl;
+
+	bubbleSort(letters);
+	
+	//Replace letter code
+	/*
+	cout << "Enter a letter to replace vowels with: ";
+	char letter;
+	cin >> letter;
+	letters.print();
+	replaceVowels(letters, letter);
+	letters.print();
+	cout << countVowel(letters) << " vowels in the letter list." << endl;
+	*/
+
+	number.print();
+	//bubbleSort(number);
+	//number.print();
+	
+	int input;
+	cout << "Enter a value: ";
+	cin >> input;
+	deleteValues(number, input);
+	number.print();	
 	return 0;
 }
