@@ -17,6 +17,7 @@ class LinkedList {
         Node<T>* last;
     public:
         LinkedList();
+        LinkedList(const LinkedList<T>&);
         bool isEmpty();
         int listSize();
         const void print();
@@ -26,7 +27,6 @@ class LinkedList {
         void insertLast(const T&);
         bool search(const T&);
         void deleteNode(const T&);
-        LinkedList(const LinkedList<T>&);
         void destroyList();
         ~LinkedList();
 };
@@ -36,6 +36,20 @@ LinkedList<T>::LinkedList(){
     length = 0;
     first = NULL;
     last = NULL;
+}
+
+template<class T>
+LinkedList<T>::LinkedList(const LinkedList<T>& otherList){
+    Node<T>* current;
+    if(first != NULL){
+        destroyList();
+    }
+    current = otherList.first;
+    while(current != NULL){
+        insertLast(current->info);
+        current = current->next;
+    }
+    length = otherList.length;
 }
 
 template<class T>
@@ -73,6 +87,7 @@ const void LinkedList<T>::print(){
         }
         cout << endl;
     }
+    return;
 }
 
 template<class T>
@@ -141,47 +156,57 @@ template<class T>
 void LinkedList<T>::deleteNode(const T& n){
     Node<T>* walker;
     walker = new Node<T>;
+    assert(walker != NULL);
+
     Node<T>* follower;
     follower = new Node<T>;
-    assert(walker != NULL);
     assert(follower != NULL);
-    walker = first->next;
-    follower = first;
-    if(follower->info == n){
-        first = walker;
-        delete follower;
-    }
-    while(walker != NULL){
-        if(walker->info == n){
-            follower->next = walker->next;
-            if(walker == last){
-                last = follower;
-            }
-            delete walker;
-            break;
+
+    if(first == NULL){
+        cout << "No nodes to delete.\n";
+
+    }else if(first->next == NULL){
+        if(first->info == n){
+            delete first;
+            first = last = NULL;
+            length = 0;
         }else{
-            follower = follower->next;
-            walker = walker->next;
+            cout << "Node not found.\n";
         }
+    }else{
+        follower = first;
+        walker = follower->next;
+        if(follower->info == n){
+            first = walker;
+            delete follower;
+            length--;
+        }else{
+
+            while(walker != NULL){
+                if(walker->info == n){
+                    follower->next = walker->next;
+                    if(walker == last){
+                        last = follower;
+                    }
+                    delete walker;
+                    length--;
+                    break;
+                }else{
+                    follower = walker;
+                    walker = walker->next;
+                }
+            }
+
+        }
+        
     }
     return;
 }
 
-template<class T>
-void LinkedList<T>::destroyList(){
-    Node<T>* tmp;
-    while(first != NULL){
-        tmp = first;
-        first = first->next;
-        delete tmp;
-    }
+//template<class T>
+/*T LinkedList<T>::retrieveAt(int pos, T& list){
 
-    return;
-    
-}
-
-template<class T>
-LinkedList<T>::~LinkedList(){
-    cout << "Destructor called.\n";
-    destroyList();
-}
+}*/
+//replaceAt int pos Type& list
+ 
+//bool sublist LL<T>& list1 LL<T>& list2
