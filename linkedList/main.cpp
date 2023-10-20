@@ -32,9 +32,6 @@ int main(){
     cout << "Is 7 in the list: " << myList.search(7) << endl;
     cout << "Is 20 in the list: " << myList.search(20) << endl;
     cout << "Front: " << myList.front() << endl;
-    cout << "Back: " << myList.back() << endl;
-
-    
-
+    //cout << "Back: " << myList.back() << endl;
     return 0;
 }

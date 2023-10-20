@@ -3,15 +3,13 @@ using namespace std;
 #include<assert.h>
 
 template<class Type>
-struct Node
-{
+struct Node {
 	Type info;
 	Node<Type>* next;
 };
 
 template<class Type>
-class LinkedList
-{
+class LinkedList {
 protected:
 	int length;
 	Node<Type>* first;
@@ -37,29 +35,25 @@ public:
 };
 
 template<class Type>
-LinkedList<Type>::LinkedList()
-{
+LinkedList<Type>::LinkedList() {
 	length = 0;
 	first = NULL;
 	last = NULL;
 }
 
 template<class Type>
-bool LinkedList<Type>::isEmpty()
-{
+bool LinkedList<Type>::isEmpty() {
 	return length == 0;
 	// return first == NULL; or return last == NULL;
 }
 
 template<class Type>
-int LinkedList<Type>::listSize()
-{
+int LinkedList<Type>::listSize() {
 	return length;
 }
 
 template<class Type>
-const void LinkedList<Type>::print()
-{
+const void LinkedList<Type>::print() {
 	if (isEmpty())
 		cout << "The list is empty, nothing to print\n";
 	else
@@ -214,8 +208,7 @@ void LinkedList<Type>::destroyList()
 }
 
 template<class Type>
-LinkedList<Type>::~LinkedList()
-{
+LinkedList<Type>::~LinkedList(){
 	cout << "The list was destroyed\n";
 	destroyList();
 }

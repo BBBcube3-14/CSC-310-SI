@@ -203,10 +203,8 @@ void LinkedList<T>::deleteNode(const T& n){
     return;
 }
 
-//template<class T>
-/*T LinkedList<T>::retrieveAt(int pos, T& list){
-
-}*/
-//replaceAt int pos Type& list
- 
-//bool sublist LL<T>& list1 LL<T>& list2
+template<class Type>
+LinkedList<Type>::~LinkedList(){
+	cout << "The list was destroyed\n";
+	destroyList();
+}

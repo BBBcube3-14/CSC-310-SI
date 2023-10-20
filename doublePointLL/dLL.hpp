@@ -1,5 +1,6 @@
 #include <iostream>
 using namespace std;
+#include<assert.h>
 
 template <class T>
 struct Node{
@@ -9,17 +10,18 @@ struct Node{
 };
 
 template<class T>
-class LinkedList {
+class DoubleLinkedList {
     protected:
         int length;
         Node<T>* first;
         Node<T>* last;
     public:
-        LinkedList();
-        LinkedList(const LinkedList<T>&);
+        DoubleLinkedList();
+        DoubleLinkedList(const DoubleLinkedList<T>&);
         bool isEmpty();
         int listSize();
         const void print();
+        const void printRev();
         T front();
         T back();
         void insertFirst(const T&);
@@ -27,18 +29,42 @@ class LinkedList {
         bool search(const T&);
         void deleteNode(const T&);
         void destroyList();
-        ~LinkedList();
+        ~DoubleLinkedList();
+        void retrieveAt(int position, T&);
+        void replaceAt(int position, const T&);
+        bool isSortedList();
+        //reverseNodes
 };
 
 template <class T>
-LinkedList<T>::LinkedList(){
+bool DoubleLinkedList<T>::isSortedList(){
+    if(first == NULL){
+        cout << "Empty List. Technically in order.\n";
+        return true;
+    }if(length == 1){
+        cout << "In order.\n";
+        return true;
+    }else{
+        bool inOrder = true;
+        Node<T>* current = first;
+        while(current->next != NULL && inOrder == true){
+            if(current->info > current->next->info){
+                inOrder = false;
+            }
+        }
+        return inOrder;
+    } 
+}
+
+template <class T>
+DoubleLinkedList<T>::DoubleLinkedList(){
     length = 0;
     first = NULL;
     last = NULL;
 }
 
 template <class T>
-LinkedList<T>::LinkedList( const LinkedList<T>& otherList){
+DoubleLinkedList<T>::DoubleLinkedList( const DoubleLinkedList<T>& otherList){
     Node<T>* current;
     if(first != NULL){
         destroyList();
@@ -51,42 +77,31 @@ LinkedList<T>::LinkedList( const LinkedList<T>& otherList){
     length = otherList.length;
 }
 
+
 template<class T>
-bool LinkedList<T>::isEmpty(){
-    return first = NULL;
+bool DoubleLinkedList<T>::isEmpty(){
+    return length == 0;
 }
 
 template<class T>
-int LinkedList<T>::listSize(){
+int DoubleLinkedList<T>::listSize(){
     return length;
 }
 
 template<class T>
-T LinkedList<T>::front(){
-    if (first != NULL){
-        return first->info;
-    }else{
-        cout << "Empty list.\n";
-        Node<T>* tmp = new Node<T>;
-        tmp->info = 0;
-        return tmp->info;
-    }
+T DoubleLinkedList<T>::front(){
+    assert(first != NULL);
+	return first->info;
 }
 
 template<class T>
-T LinkedList<T>::back(){
-    if (first != NULL){
-        return last->info;
-    }else{
-        cout << "Empty list.\n";
-        Node<T>* tmp = new Node<T>;
-        tmp->info = 0;
-        return tmp->info;
-    }
+T DoubleLinkedList<T>::back(){
+    assert(first != NULL);
+	return last->info;
 }
 
 template<class T>
-const void LinkedList<T>::print(){
+const void DoubleLinkedList<T>::print(){
     if(isEmpty()){
         cout << "The list is empty, nothing to print.\n";
     }else{
@@ -102,31 +117,47 @@ const void LinkedList<T>::print(){
 }
 
 template<class T>
-void LinkedList<T>::insertFirst(const T& n){
-    Node<T>* tmp = new Node<T>;
-    if(first != NULL){
-        tmp->info = n;
-        first->prev = tmp;
-        tmp->next = first;
-        tmp->prev = NULL;
-        first = tmp;
-        length++;
+const void DoubleLinkedList<T>::printRev(){
+    if(isEmpty()){
+        cout << "The list is empty, nothing to print.\n";
     }else{
-        tmp->info = n;
-        tmp->prev = NULL;
-        tmp->next = NULL;
-        length++;
-        first = last = tmp;
+        Node<T>* tmp;
+        tmp = last;
+        while(tmp!=NULL){
+            cout << tmp->info << " ";
+            tmp = tmp->prev;
+        }
+        cout << endl;
+    }
+    return;
+}
+
+template<class T>
+void DoubleLinkedList<T>::insertFirst(const T& n){
+    Node<T>* tmp;
+    tmp = new Node<T>;
+    assert(tmp != NULL);
+    tmp->info = n;
+    tmp->prev = NULL;
+    tmp->next = first;
+    first->prev = tmp;
+    first = tmp;
+    length++;
+    if(last == NULL){
+        last = tmp;
     }
 }
 
 template<class T>
-void LinkedList<T>::insertLast(const T& n){
-    Node<T>* newNode =  new Node<T>;
+void DoubleLinkedList<T>::insertLast(const T& n){
+    Node<T>* newNode;
+    newNode = new Node<T>;
+    assert(newNode!= NULL);
     newNode->info = n;
     newNode->next = NULL;
     if(first == NULL){
-        first = last = newNode;
+        first =  newNode;
+        last = newNode;
     }else{
         last->next = newNode;
         newNode->prev = last;
@@ -136,74 +167,105 @@ void LinkedList<T>::insertLast(const T& n){
 }
 
 template<class T>
-bool LinkedList<T>::search(const T& n){
-    Node<T>* walker = new Node<T>;
+bool DoubleLinkedList<T>::search(const T& n){
+    Node<T>* walker;
+    bool found;
     walker = first;
-    while(walker != NULL){
+    found = false;
+    while(walker != NULL && !found){
         if(walker->info == n){
             return true;
+        }else{
+            walker = walker->next;
         }
     }
-    return false;
+    return found;
 }
 
 template<class T>
-void LinkedList<T>::deleteNode(const T& n){
-    Node<T>* walker = new Node<T>;
-    Node<T>* follower = new Node<T>;
-    
-    if(first == NULL){
-        cout << "No nodes to delete.\n";
-    }else if(first->next == NULL){
-        if(first->info == n){
-            delete first;
-            first = last = NULL;
-            length = 0;
-        }else{
-            cout << "Node not found.\n";
-        }
+void DoubleLinkedList<T>::deleteNode(const T& n){
+    if(isEmpty()){
+        cout << "Empty linked list. No node to be deleted\n";
     }else{
-        follower = first;
-        walker = follower->next;
-        if(follower->info == n){
-            first = walker;
-            delete follower;
-            length--;
+        Node<T> *current, *prevCurrent;
+        current = first;
+        prevCurrent = NULL;
+        while(current != NULL && current->info != n){
+            prevCurrent = current;
+            current = current->next;
+        }
+        if(current == NULL){
+            cout << n << " was not found in the linked list\n";
         }else{
-            while(walker != NULL){
-                if(walker->info == n){
-                    follower->next = walker->next;
-                    if(walker == last){
-                        last = follower;
-                    }
-                    delete walker;
-                    length--;
-                    break;
-                }else{
-                    follower = walker;
-                    walker = walker->next;
-                }
+            if(first == last){
+                delete current;
+                first = NULL;
+                last = NULL;
+            }else if(current == first){
+                first = first->next;
+                delete current;
+            }else if(current == last){
+                last = prevCurrent;
+                last->next = NULL;
+                delete current;
+            }else{
+                prevCurrent->next = current->next;
+                delete current;
             }
+            length--;
         }
     }
     return;
 }
 
 template<class T>
-void LinkedList<T>::destroyList(){
+void DoubleLinkedList<T>::destroyList(){
     Node<T>* tmp;
     while(first != NULL){
         tmp = first;
         first = first->next;
         delete tmp;
     }
-
+    last = NULL;
+    length = 0;
     return;
-    
 }
 
 template<class T>
-LinkedList<T>::~LinkedList(){
+DoubleLinkedList<T>::~DoubleLinkedList(){
     cout << "Destructor called.\n";
     destroyList();
 }
+
+template<class Type>
+void DoubleLinkedList<Type>::retrieveAt(int position, Type& item){
+	Node<Type>* start;
+	if(isEmpty())
+		cout << "List is empty. Cannot recieve\n";
+	else if(position < 0 || position >= length)
+		cout << "Invalid position\n";
+	else{
+		start = first;
+		for(int i = 0; i < position; i++)
+			start = start->next;
+		item = start->info;
+	}
+
+}
+
+template<class Type>
+void DoubleLinkedList<Type>::replaceAt(int position, const Type& newItem){
+	Node<Type>* start;
+	if(isEmpty())
+		cout << "List is empty. Cannot recieve\n";
+	else if(position < 0 || position >= length)
+		cout << "Invalid position\n";
+	else{
+		start = first;
+		for(int i = 0; i < position; i++)
+			start = start->next;
+		start->info = newItem;
+	}
+}
+
+//template<class Type>

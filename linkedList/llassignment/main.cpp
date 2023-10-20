@@ -27,6 +27,16 @@ bool isSublist(LinkedList<Type>& list1, LinkedList<Type>& list2){
     return true;
 }
 
+template<class T>
+void reverseList(LinkedList<T>& list){
+    int x,  n = list.listSize();
+    for(int i = n - 1; i >= 0; i--){
+        list.retrieveAt(i, x);
+        cout << x << " ";
+    }
+    cout << endl;
+}
+
 int main(){
 	LinkedList<int> list; LinkedList<int> otherList;
     list.insertLast(17); list.insertLast(3); list.insertLast(20);
@@ -43,5 +53,7 @@ int main(){
     printCommon(list, otherList);
     cout << isSublist(otherList, list) << endl;
     cout << isSublist(list, otherList) << endl;
+
+    reverseList(list);
 	return 0;
 }

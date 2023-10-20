@@ -3,39 +3,55 @@
 using namespace std;
 #include "dLL.hpp"
 
+template<class Type>
+void printCommon(DoubleLinkedList<Type>& list1, DoubleLinkedList<Type>& list2){
+    int x;
+    for(int i = 0; i < list1.listSize(); i++){
+        list1.retrieveAt(i, x);
+        if(list2.search(x))
+            cout << x << " ";
+    }
+    cout << "\n";
+}
+
+template<class Type>
+bool isSublist(DoubleLinkedList<Type>& list1, DoubleLinkedList<Type>& list2){
+    int one, two;
+    for(int y = 0; y < list1.listSize(); y++){
+        list1.retrieveAt(y, one);
+        if(!list2.search(one)){
+            return false;
+        }
+    }
+    return true;
+}
 
 
 int main(){
 
-    LinkedList<int> myList;
-    cout << "Is the list empty: " << myList.isEmpty() << endl;
-    cout << "How many are in the list: " << myList.listSize() << endl;
-    myList.print();
-    myList.insertFirst(10); //10
+    DoubleLinkedList<int> list;//, otherList;
+    list.insertLast(17); list.insertLast(3); list.insertLast(20);
+    list.insertLast(8); list.insertLast(21); list.insertLast(4);
+    list.insertLast(6); list.insertLast(0); list.insertLast(15);
+    list.insertLast(1);
+    list.print();
+    int x;
+    list.retrieveAt(4, x);
+    cout << x << endl;
+    list.replaceAt(4, -1);
+    list.print();
+    list.printRev();
+    cout << "Is list in order? " << list.isSortedList() << endl;
+    DoubleLinkedList<int> otherList(list);
 
-    myList.print();
-    myList.insertFirst(5);  //05 10
-    myList.print();
-    myList.insertFirst(2);  //02 05 10
-    myList.print();
-    myList.insertLast(1);   //02 05 10 01
-    myList.print();
-    myList.deleteNode(2);   //05 10 01
-    myList.print();
-    myList.insertFirst(7);  //07 05 10 01
-    myList.print();
-    myList.insertLast(20);  //07 05 10 01 20
-    myList.print();
-    myList.deleteNode(5);   //07 10 01 20
-    myList.print();
-    myList.deleteNode(20);  //07 10 01
-    myList.print();
-    cout << "Is 7 in the list: " << myList.search(7) << endl;
-    cout << "Is 20 in the list: " << myList.search(20) << endl;
-    cout << "Front: " << myList.front() << endl;
-    cout << "Back: " << myList.back() << endl;
+
+
+    otherList.deleteNode(20);
     
-    
+    //otherList.insertLast(6); otherList.insertLast(0); otherList.insertLast(15);
+    printCommon(list, otherList);
+    cout << isSublist(otherList, list) << endl;
+    cout << isSublist(list, otherList) << endl;
 
     return 0;
 }
