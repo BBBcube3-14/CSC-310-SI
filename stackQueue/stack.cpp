@@ -1,12 +1,34 @@
 #include <iostream>
-#include <stack>
+#include <cassert>
 using namespace std;
+#include "Stack.hpp"
 
 int main(){
-    stack<int> stack;
-    for(int i = 0; i < 10; i++){
-        stack.push(i);
-        cout << "Pushed: " << stack.top
+    Stack<float> equationStack(10);
+    string equa;
+    cout << "Enter a postfix expression: ";
+    cin >> equa;
+    float one, two;
+    while(equa != "="){
+        if(equa == "+"){
+
+        }else if(equa == "-"){
+
+        }else if(equa == "*"){
+
+        }else if(equa == "/"){
+
+        }else{
+
+        }
     }
-    
 }
+
+/*
+a+b                     ab+
+a+b*c                   abc*+
+a*b+c                   ab*c+
+(a+b)*c                 ab+c*
+(a-b)*(c+d)             ab-cd+*
+(a+b)*(c-d/e)+f         ab+cde/-*f+
+*/

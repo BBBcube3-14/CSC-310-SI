@@ -29,8 +29,17 @@ bool isSublist(DoubleLinkedList<Type>& list1, DoubleLinkedList<Type>& list2){
 
 int main(){
 
-    DoubleLinkedList<int> list;//, otherList;
-    list.insertLast(17); list.insertLast(3); list.insertLast(20);
+    DoubleLinkedList<double> list;//, otherList;
+    list.insertLast(5.1);
+    list.insertLast(10.2);
+    list.insertLast(15.6);
+    list.insertLast(12.3);
+    list.insertLast(30.8);
+    list.insertLast(35.1);
+    list.insertLast(4.7);
+    list.insertLast(50.9);
+    list.insertLast(60.6);
+    /*list.insertLast(17); list.insertLast(3); list.insertLast(20);
     list.insertLast(8); list.insertLast(21); list.insertLast(4);
     list.insertLast(6); list.insertLast(0); list.insertLast(15);
     list.insertLast(1);
@@ -39,19 +48,17 @@ int main(){
     list.retrieveAt(4, x);
     cout << x << endl;
     list.replaceAt(4, -1);
+    cout << "Normal Print:  ";
     list.print();
+    cout << "Reverse Print: ";
     list.printRev();
-    cout << "Is list in order? " << list.isSortedList() << endl;
-    DoubleLinkedList<int> otherList(list);
 
+    list.reverseNodes();
 
-
-    otherList.deleteNode(20);
-    
-    //otherList.insertLast(6); otherList.insertLast(0); otherList.insertLast(15);
-    printCommon(list, otherList);
-    cout << isSublist(otherList, list) << endl;
-    cout << isSublist(list, otherList) << endl;
-
+    cout << "Normal Print:  ";
+    list.print();
+    cout << "Reverse Print: ";
+    list.printRev();*/
+    cout << "Big numbers: " << list.bigNodes() << endl;
     return 0;
 }

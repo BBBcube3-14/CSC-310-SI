@@ -33,8 +33,51 @@ class DoubleLinkedList {
         void retrieveAt(int position, T&);
         void replaceAt(int position, const T&);
         bool isSortedList();
+        void reverseNodes();
+        bool Palindrome();
+        int bigNodes();
         //reverseNodes
 };
+
+template <class T>
+int DoubleLinkedList<T>::bigNodes(){
+    if(length < 2){
+        return 0;
+    }
+
+    int count = 0;
+    Node<T> *current = first->next;
+    if(first->info  > first->next->info){
+       count++; 
+    }
+    if(last->info  > last->prev->info){
+       count++; 
+    }
+
+    while(current != last){
+        if(current->info > current->prev->info && current->info > current->next->info){
+            count++;
+        }
+        current = current->next;
+    }
+    
+
+    return count;
+}
+
+template <class T>
+bool DoubleLinkedList<T>::Palindrome(){
+    Node<T>* currentFirst = first;
+    Node<T>* currentLast = last;
+    for(int i = 0; i < length/2; i++){
+        if(currentFirst->info == currentLast->info){
+            return false;
+        }
+        currentFirst = currentFirst->next;
+        currentLast = currentLast->prev;
+    }
+    return true;
+}
 
 template <class T>
 bool DoubleLinkedList<T>::isSortedList(){
@@ -57,6 +100,21 @@ bool DoubleLinkedList<T>::isSortedList(){
 }
 
 template <class T>
+void DoubleLinkedList<T>::reverseNodes(){
+    //int n = length;
+    Node<T>* currentFirst = first;
+    Node<T>* currentLast = last;
+    T tmp;
+    for(int i = 0; i < length/2; i++){
+        tmp = currentFirst->info;
+        currentFirst->info = currentLast->info;
+        currentLast->info = tmp;
+        currentFirst = currentFirst->next;
+        currentLast = currentLast->prev;
+    }
+}
+
+template <class T>
 DoubleLinkedList<T>::DoubleLinkedList(){
     length = 0;
     first = NULL;
@@ -76,7 +134,6 @@ DoubleLinkedList<T>::DoubleLinkedList( const DoubleLinkedList<T>& otherList){
     }
     length = otherList.length;
 }
-
 
 template<class T>
 bool DoubleLinkedList<T>::isEmpty(){
@@ -267,5 +324,3 @@ void DoubleLinkedList<Type>::replaceAt(int position, const Type& newItem){
 		start->info = newItem;
 	}
 }
-
-//template<class Type>
