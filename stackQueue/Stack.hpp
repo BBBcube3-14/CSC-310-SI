@@ -1,55 +1,77 @@
-#include <cassert>
-#include <iostream>
-using namespace std;
 #include "ArrayListImplementation.hpp"
 
-template<class T>
-class Stack : public ArrayList<T>{
-    public:
-        Stack(int);
-        bool isEmptyStack();
-        bool isFullStack();
-        void printStack();
-        void push(const T& x);
-        T top();
-        void pop();
+template<class Type>
+class Stack : public ArrayList<Type>
+{
+public:
+	Stack(int);
+	bool isEmptyStack();
+	bool isFullStack();
+	void printStack();
+	void push(const Type& x);
+	Type top();
+	void pop();
+    bool pop(Type&);
+//    int stackSize();
 };
 
-template<class T>
-Stack<T>::Stack(int ms) : ArrayList<T>(ms){}
 
-template<class T>
-bool Stack<T>::isEmptyStack(){
-    return ArrayList<T>::isEmpty();
+
+template<class Type>
+Stack<Type>::Stack(int ms) : ArrayList<Type>(ms)
+{
 }
 
-template<class T>
-bool Stack<T>::isFullStack(){
-    return ArrayList<T>::isFull();
+template<class Type>
+bool Stack<Type>::isEmptyStack()
+{
+	return ArrayList<Type>::isEmpty();
 }
 
-template<class T>
-void Stack<T>::printStack(){
-    ArrayList<T>::print();
+template<class Type>
+bool Stack<Type>::isFullStack()
+{
+	return ArrayList<Type>::isFull();
 }
 
-template<class T>
-void Stack<T>::push(const T& x){
-    ArrayList<T>::insertEnd(x);
+template<class Type>
+void Stack<Type>::printStack()
+{
+	ArrayList<Type>::print();
 }
 
-template<class T>
-T Stack<T>::top(){
+template<class Type>
+void Stack<Type>::push(const Type& x)
+{
+	ArrayList<Type>::insertEnd(x);
+}
+
+template<class Type>
+Type Stack<Type>::top()
+{
+	int n;
+	Type x;
+	n = ArrayList<Type>::listSize();
+	ArrayList<Type>::retrieveAt(n-1, x);
+	return x;
+}
+
+template <class Type>
+bool Stack<Type>::pop(Type& x){
     int n;
-    T x;
-    n = ArrayList<T>::listSize();
-    ArrayList<T>::retrieveAt(n-1,x);
-    return x;
+    n = ArrayList<Type>::listSize();
+    if(n == 0){
+        return false;
+    }else{
+        ArrayList<Type>::retrieveAt(n-1, x);
+        ArrayList<Type>::removeAt(n-1);
+        return true;
+    }
 }
 
-template<class T>
-void Stack<T>::pop(){
-    int n;
-    n = ArrayList<T>::listSize();
-    ArrayList<T>::removeAt(n - 1);
+template<class Type>
+void Stack<Type>::pop(){
+	int n;
+	n = ArrayList<Type>::listSize();
+	ArrayList<Type>::removeAt(n - 1);
 }

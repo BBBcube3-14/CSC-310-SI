@@ -1,9 +1,9 @@
-#include <cassert>
-#include <iostream>
+#include<assert.h>
+#include<iostream>
 using namespace std;
 
 template<class Type>
-class ArrayList{
+class ArrayList {
 protected:
 	int length, maxSize;
 	Type* list;
@@ -30,200 +30,220 @@ public:
 };
 
 template<class Type>
-ArrayList<Type>::ArrayList(int size) {
+ArrayList<Type>::ArrayList(int size)
+{
 	length = 0;
-	if (size < 0) {
+	if (size < 0)
+	{
 		cout << "The array size must be positive. Creating of an array of size 100.\n";
 		maxSize = 100;
-	} else {
+	}
+	else
 		maxSize = size;
-    }
 	list = new Type[maxSize];
 	assert(list != NULL); // capture programming error
 }
 
 template<class Type>
-bool ArrayList<Type>::isEmpty(){
+bool ArrayList<Type>::isEmpty()
+{
 	return length == 0;
 }
 
 template<class Type>
-bool ArrayList<Type>::isFull(){
+bool ArrayList<Type>::isFull()
+{
 	return length == maxSize;
 }
 
 template<class Type>
-int ArrayList<Type>::listSize(){
+int ArrayList<Type>::listSize()
+{
 	return length;
 }
 
 template<class Type>
-int ArrayList<Type>::maxListSize(){
+int ArrayList<Type>::maxListSize()
+{
 	return maxSize;
 }
 
 template<class Type>
-const void ArrayList<Type>::print(){
-	if (isEmpty()){
+const void ArrayList<Type>::print()
+{
+	if (isEmpty())
 		cout << "Empty list\n";
-    }else{
-		for (int i = 0; i < length; i++){
+	else
+	{
+		for (int i = 0; i < length; i++)
 			cout << list[i] << " ";
-        }
 		cout << "\n";
 	}
 }
 
 template<class Type>
-bool ArrayList<Type>::isItemAtEqual(int pos, const Type& x){
-	if (pos < 0 || pos >= maxSize){
+bool ArrayList<Type>::isItemAtEqual(int pos, const Type& x)
+{
+	if (pos < 0 || pos >= maxSize)
+	{
 		cout << "Valid positions must be in " << 0 << "..." << length - 1 << "\n";
 		return false;
-	} else if (list[pos] == x) {
+	}
+	else if (list[pos] == x)
 		return true;
-    }else{
+	else
 		return false;
-    }
 }
 
 template<class Type>
-void ArrayList<Type>::insertAt(int pos, const Type& x){
-	if (isFull()){
+void ArrayList<Type>::insertAt(int pos, const Type& x)
+{
+	if (isFull())
 		cout << "Cannot insert in a full list.\n";
-    } else if (pos < 0 || pos > length){
+	else if (pos < 0 || pos > length)
 		cout << "Valid positions for insertion are " << 0 << "..." << length << "\n";
-	} else {
-		for (int i = length; i > pos; i--){
+	else
+	{
+		for (int i = length; i > pos; i--)
 			list[i] = list[i - 1];
-        }
 		list[pos] = x;
 		length++;
 	}
 }
 
 template<class Type>
-void ArrayList<Type>::insertEnd(const Type& x) {
-	if (isFull()){
+void ArrayList<Type>::insertEnd(const Type& x)
+{
+	if (isFull())
 		cout << "Cannot insert in a full list.\n";
-    } else {
+	else
+	{
 		list[length] = x;
 		length++;
 	}
 }
 
 template<class Type>
-void ArrayList<Type>::removeAt(int pos){
-	if (isEmpty()){
+void ArrayList<Type>::removeAt(int pos)
+{
+	if (isEmpty())
 		cout << "Cannot remove from an empty list.\n";
-    } else if (pos < 0 || pos >= length) {
-		cout << "Valid positions for removal are " << 0 << "..." << length-1 << "\n";
-    } else {
-		for (int i = pos; i <length-1; i++) {
+	else if (pos < 0 || pos >= length)
+		cout << "Valid positions for removal are " << 0 << "..." << length - 1 << "\n";
+	else
+	{
+		for (int i = pos; i < length - 1; i++)
 			list[i] = list[i + 1];
-        }
 		length--;
 	}
 }
 
 template<class Type>
-void ArrayList<Type>::retrieveAt(int pos, Type& x) {
-	if (isEmpty()) {
+void ArrayList<Type>::retrieveAt(int pos, Type& x)
+{
+	if (isEmpty())
 		cout << "Cannot retrieve from an empty list.\n";
-	} else if (pos < 0 || pos >= length) {
+	else if (pos < 0 || pos >= length)
 		cout << "Valid positions for retrieving are " << 0 << "..." << length - 1 << "\n";
-	} else {
+	else
 		x = list[pos];
-    }
 }
 
 template<class Type>
-void ArrayList<Type>::replaceAt(int pos, const Type& x) {
-	if (isEmpty()) {
+void ArrayList<Type>::replaceAt(int pos, const Type& x)
+{
+	if (isEmpty())
 		cout << "Empty list.\n";
-    } else if (pos < 0 || pos >= length) {
+	else if (pos < 0 || pos >= length)
 		cout << "Valid positions for replacement are " << 0 << "..." << length - 1 << "\n";
-    } else {
+	else
 		list[pos] = x;
-    }
 }
 
 template<class Type>
-void ArrayList<Type>::clearList() {
+void ArrayList<Type>::clearList()
+{
 	length = 0;
 }
 
 template<class Type>
-int ArrayList<Type>::seqSearch(const Type& x) {
-	if (isEmpty()) {
+int ArrayList<Type>::seqSearch(const Type& x)
+{
+	if (isEmpty())
+	{
 		cout << "Cannot search in an empty list.\n";
 		return -1;
-	} else {
-		for (int i = 0; i < length; i++) {
-			if (list[i] == x) {
+	}
+	else
+	{
+		for (int i = 0; i < length; i++)
+			if (list[i] == x)
 				return i;
-            }
-        }
 		return -1;
 	}
 }
 
 template<class Type>
-void ArrayList<Type>::insert(const Type& x) { //without duplication
-	if (length == maxSize) { //or if(isFull())
+void ArrayList<Type>::insert(const Type& x)//without duplication
+{
+	if (length == maxSize) //or if(isFull())
 		cout << "Cannot insert in a full list.\n";
-    } else if(length == 0) {// or if(isEmpty())
+	else if (length == 0) // or if(isEmpty())
 		list[length++] = x;
-    } else {
-		if (seqSearch(x) != -1) {
+	else
+	{
+		if (seqSearch(x) != -1)
 			cout << "Dupplication is not allowed\n";
-        } else {
+		else
 			list[length++] = x;
-        }
 	}
 }
 
 template<class Type>
-void ArrayList<Type>::remove(const Type& x) {
-	if (length == 0) { // or if(isEmpty())
-		cout << "Cannot remove from empty list\n"; 
-    } else {
+void ArrayList<Type>::remove(const Type& x)
+{
+	if (length == 0) // or if(isEmpty())
+		cout << "Cannot remove from empty list\n";
+	else
+	{
 		int i = seqSearch(x);
-		if(i==-1) {
+		if (i == -1)
 			cout << x << " does not exist in the list\n";
-        } else {
+		else
 			removeAt(i);
-        }
 	}
 }
 
 template<class Type>
-ArrayList<Type>::ArrayList(const ArrayList<Type>& otherList) {
+ArrayList<Type>::ArrayList(const ArrayList<Type>& otherList)
+{
 	maxSize = otherList.maxSize;
 	length = otherList.length;
 	list = new Type[maxSize];
 	assert(list != NULL); // capture programming error
-	for (int i = 0; i < length; i++) {
+	for (int i = 0; i < length; i++)
 		list[i] = otherList.list[i];
-    }
 }
 
 template<class Type>
-ArrayList<Type>::~ArrayList() { // destructor
+ArrayList<Type>::~ArrayList()    // destructor
+{
+	cout << "The list was destroyed."<< endl;
 	delete[] list;
-	
 }
 
 template<class Type>
-const ArrayList<Type>& ArrayList<Type>::operator=(const ArrayList<Type>& otherList) {
-	if (this != &otherList) {
+const ArrayList<Type>& ArrayList<Type>::operator=(const ArrayList<Type>& otherList)
+{
+	if (this != &otherList)
+	{
 		delete[] list;
 		maxSize = otherList.maxSize;
 		length = otherList.length;
 		list = new Type[maxSize];
 		assert(list != NULL);
-		for (int i = 0; i < length; i++) {
+		for (int i = 0; i < length; i++)
 			list[i] = otherList.list[i];
-        }
 	}
 	return *this;
 }
