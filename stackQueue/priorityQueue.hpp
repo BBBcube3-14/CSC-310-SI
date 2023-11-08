@@ -189,3 +189,7 @@ PriorityQueue<Type>::~PriorityQueue()
 	cout << "The queue was destroyed\n";
 	destroyQueue();
 }
+
+
+
+//split queue - every other node

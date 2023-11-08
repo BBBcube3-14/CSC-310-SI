@@ -2,6 +2,10 @@
 using namespace std;
 #include"priorityQueue.hpp"
 
+
+
+
+
 int main() 
 {
 	PriorityQueue<string> q(20);

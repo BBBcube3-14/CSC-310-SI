@@ -1,4 +1,6 @@
 #include<assert.h>
+#include <iostream>
+using namespace std;
 
 template<class Type>
 struct Node
@@ -140,7 +142,9 @@ Queue<Type>::Queue(const Queue<Type>& otherQueue)
 	Node<Type>* current;   //pointer to traverse otherQueue
 	if (first != NULL)
 		destroyQueue();
+    
 	maxSize = otherQueue.maxSize;
+    //length = otherQueue.length;
 	current = otherQueue.first;  //current points to the first node of otherQueue 
 	while (current != NULL)
 	{
