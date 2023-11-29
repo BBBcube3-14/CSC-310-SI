@@ -1,0 +1,32 @@
+Create  a program using ANY lnaguage (Preferrably c, c++, javascript)
+Compare to several DNA sequences to the following rules:
+
+Every two letters will be a pair.
+E.G.
+    ATGC
+    A and T are a pair
+    G and C are a pair
+
+Each sequence will be comprised of 20 characters A, C, G, and T.
+
+Covid begins with an A, and the flu starts with a T.
+
+Covid ends with C, and the flu ends with A.
+
+
+Reminder valid pairs: AT, TA, GC, and CG.
+
+    If you run into a case such as
+    ACta
+    A and C can not pair so output that the sequence is invalid.
+
+
+You will test a sequence against the following sequences:
+    Covid:   ATATCGTAATGCCGATTAGC 
+    Flu:     TACGTAATATTAGCGCTATA
+    Invalid: ATcaTATACGATagTAGCTA
+
+
+
+If the sequence is valid, print "Valid Sequence".
+Otherwise print, "Invalid Sequence"
